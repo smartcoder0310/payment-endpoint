@@ -14,7 +14,7 @@ Requires Python 3.11 or later and PostgreSQL 13 or later.
 
 ### 1. A database
 
-With Docker:
+**With Docker:**
 
 ```bash
 docker compose up -d
@@ -23,13 +23,26 @@ docker compose up -d
 That starts PostgreSQL on port 5432 with the user, password and databases the
 example configuration expects (`shop` and `shop_test`).
 
-Without Docker, create them yourself:
+**With a PostgreSQL you already have**, create them yourself:
 
 ```sql
 CREATE USER shop WITH PASSWORD 'shop';
 CREATE DATABASE shop OWNER shop;
 CREATE DATABASE shop_test OWNER shop;
 ```
+
+**With neither**, there is a third way that installs nothing system-wide:
+
+```bash
+pip install pgserver
+python scripts/local_postgres.py
+```
+
+`pgserver` is a Python package that ships PostgreSQL binaries. The script starts
+one under `.local-postgres/`, creates both databases, and writes the `.env` for
+you — so skip the `cp .env.example .env` below. The server keeps running after
+the script exits; run it again after a reboot. It is a local convenience, not
+part of the application: see the note at the top of the script.
 
 ### 2. The application
 

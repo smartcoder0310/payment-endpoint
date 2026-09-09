@@ -5,3 +5,6 @@ venv/
 .env
 .pytest_cache/
 .coverage
+
+# Local development server started by scripts/local_postgres.py
+.local-postgres/
